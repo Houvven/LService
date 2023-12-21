@@ -23,5 +23,3 @@ dependencyResolutionManagement {
 rootProject.name = "LService"
 include(":demo")
 include(":lservice")
-include(":services:daemon-service")
-include(":services:manager-service")

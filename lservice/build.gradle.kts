@@ -30,6 +30,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     api(libs.libsu.core)
     api(libs.libsu.service)
-    api(project(":services:daemon-service"))
-    api(project(":services:manager-service"))
+    api(libs.rikkax.parcelablelist)
 }
