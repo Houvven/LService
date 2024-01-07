@@ -29,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: lservice
-          path: lservice/builds/output/aar/lservice-release.aar
+          path: lservice/build/outputs/aar/lservice-release.aar
