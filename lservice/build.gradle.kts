@@ -31,4 +31,5 @@ dependencies {
     api(libs.libsu.core)
     api(libs.libsu.service)
     api(libs.rikkax.parcelablelist)
+    compileOnly(fileTree("libs") { include("*.jar") })
 }
