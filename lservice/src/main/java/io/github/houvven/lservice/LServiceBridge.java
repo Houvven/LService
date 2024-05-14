@@ -16,7 +16,6 @@ import com.topjohnwu.superuser.ShellUtils;
 
 import org.lsposed.lspd.service.ILSPApplicationService;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,7 +32,10 @@ class LServiceBridge extends ILServiceBridge.Stub {
             int uid = getUid(apkPath);
             Os.setuid(uid);
             if (isInstalledAutomatically) {
-                ShellUtils.fastCmd(String.format("pm uninstall %s", apkPath));
+                // 异步执行
+                new Thread(() -> {
+                    ShellUtils.fastCmd(String.format("pm uninstall %s", MANAGE_PACKAGE_NAME));
+                }).start();
             }
             Log.i(TAG, String.format("set uid success, %d", uid));
         } catch (ErrnoException | InterruptedException e) {
@@ -81,7 +83,7 @@ class LServiceBridge extends ILServiceBridge.Stub {
             boolean installed = ShellUtils.fastCmdResult(String.format("pm install -r %s", apkPath));
             if (installed) {
                 isInstalledAutomatically = true;
-                Thread.sleep(250);
+                Thread.sleep(100);
                 return getUid(apkPath);
             }
             return -1;
