@@ -12,14 +12,9 @@ android {
         minSdk = 27
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         aidl = true
@@ -27,8 +22,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    api(libs.libsu.core)
     api(libs.libsu.service)
     api(libs.rikkax.parcelablelist)
     compileOnly(fileTree("libs") { include("*.jar") })
