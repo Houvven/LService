@@ -30,6 +30,9 @@ class LServiceBridge extends ILServiceBridge.Stub {
         this.pm = ctx.getPackageManager();
         try {
             int uid = getUid(apkPath);
+            if (uid == -1) {
+                throw new RuntimeException("get uid failed.");
+            }
             Os.setuid(uid);
             if (isInstalledAutomatically) {
                 // 异步执行
