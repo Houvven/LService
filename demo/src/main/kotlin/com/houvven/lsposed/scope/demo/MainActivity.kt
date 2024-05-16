@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import io.github.houvven.lservice.LServiceBridgeRootService
 import kotlinx.coroutines.delay
 import org.lsposed.lspd.ILSPManagerService
+import org.lsposed.lspd.models.Application
 
 class MainActivity : ComponentActivity() {
 
@@ -43,6 +45,34 @@ class MainActivity : ComponentActivity() {
                     Text(text = "xposedApiVersion: $xposedApiVersion")
                     Text(text = "xposedVersionName: $xposedVersionName")
                     Text(text = "xposedVersionCode: $xposedVersionCode")
+
+                    Button(onClick = {
+                        managerService?.run {
+                            val packageName = "com.houvven.lsposed.scope.demo"
+                            getModuleScope(packageName).apply {
+                                addAll(listOf(
+                                    Application().apply {
+                                        userId = 0
+                                        this.packageName = "android"
+                                    },
+                                    Application().apply {
+                                        userId = 0
+                                        this.packageName = "com.android.systemui"
+                                    },
+                                    Application().apply {
+                                        userId = 0
+                                        this.packageName = "com.tencent.mm"
+                                    }
+                                ))
+                            }.let {
+                                setModuleScope(packageName, it)
+                            }
+                        }
+                    }) {
+                        Text(text = "Click me")
+                    }
+
+
                 }
             }
 
